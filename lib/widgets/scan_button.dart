@@ -7,7 +7,8 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 
 class ScanButton extends StatelessWidget {
-  const ScanButton({Key? key}) : super(key: key);
+  final String ?presentation;
+  const ScanButton({Key? key,this.presentation}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,9 @@ class ScanButton extends StatelessWidget {
         
         // print('Howdy, ${users.name}!');
         // print('Howdy, ${users.code}!');
-        final user=User(name: users.name,code: users.code, date: DateTime.now());
+        final user=User(name: users.name,code: users.code, date: DateTime.now(),presentation: presentation);
         createUser(user);
+        print('Howdy, ${presentation}!');
         print('Howdy, ${users.name}!');
         print('Howdy, ${users.code}!');
         // if(barcodeScanRes!=null||barcodeScanRes!='-1'||barcodeScanRes!=-1){
@@ -67,12 +69,15 @@ class User{
   final String name;
   final String code;
    DateTime ?date;
+  String ?presentation;
 
   User({
     this.id='',
     required this.name,    
     required this.code,
     this.date,
+    this.presentation,
+
   });
   User.fromJson(Map<String, dynamic> json)
       : name = json['name'],
@@ -82,7 +87,8 @@ class User{
     'id':id,
     'name':name,
     'code':code,
-    'date':date
+    'date':date,
+    'presentation':presentation
   };
 
 }

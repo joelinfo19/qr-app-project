@@ -3,16 +3,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_project/widgets/scan_button.dart';
 
-class HomePage extends StatelessWidget{
+class HomePage extends StatefulWidget{
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final controllerName=TextEditingController();
+
   final controllerCode=TextEditingController();
-
-
+  String dropdownvalue = 'Ponencia 1'; 
+   var items = [   
+    'Ponencia 1',
+    'Ponencia 2',
+    'Ponencia 3',
+    'Ponencia 4',
+    'Ponencia 5',
+  ];
 
   InputDecoration decoration(String label)=>InputDecoration(
       labelText: label,
       border: OutlineInputBorder(),
     );
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -41,8 +54,20 @@ class HomePage extends StatelessWidget{
 
             ),
             const SizedBox(height: 24),
+            DropdownButton(value: dropdownvalue,icon: const Icon(Icons.keyboard_arrow_down),items: items.map((String items){
+              return DropdownMenuItem(
+                value:items,
+                child: Text(items),
+              );
+            }).toList(),
+             onChanged: (String ?newValue){
+              setState(() {
+                dropdownvalue=newValue!;
+              });
+            }),
+            const SizedBox(height: 24),
             OutlinedButton(onPressed: (){
-              final user=User(name: controllerName.text,code: controllerCode.text, date: DateTime.now());
+              final user=User(name: controllerName.text,code: controllerCode.text, date: DateTime.now(),presentation: dropdownvalue);
               createUser(user);
               const snackBar = SnackBar(
                 content: Text("USUARIO AGREGADO"),
@@ -54,12 +79,12 @@ class HomePage extends StatelessWidget{
       
       ],
       ),
-      floatingActionButton: ScanButton(),
+      floatingActionButton: ScanButton(presentation:dropdownvalue),
 
     );
     
   }
-  
+
   Future createUser(User user) async{
     final docUser=FirebaseFirestore.instance.collection('users').doc();
     user.id=docUser.id;
@@ -75,19 +100,22 @@ class User{
   final String name;
   final String code;
   final DateTime date;
+  String ?presentation;
 
   User({
     this.id='',
     required this.name,    
     required this.code,
-    required this.date
+    required this.date,
+    this.presentation
   });
 
   Map<String,dynamic> toJson()=>{
     'id':id,
     'name':name,
     'code':code,
-    'date':date
+    'date':date,
+    'presentation':presentation,
   };
 
 }

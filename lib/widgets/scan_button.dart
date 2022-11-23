@@ -34,11 +34,13 @@ class ScanButton extends StatelessWidget {
         
         // print('Howdy, ${users.name}!');
         // print('Howdy, ${users.code}!');
-        final user=User(name: users.name,code: users.code, date: DateTime.now(),presentation: presentation);
+        final user=User(name: users.name,code: users.code, date: DateTime.now(),dni:users.dni,presentation: presentation);
         createUser(user);
         print('Howdy, ${presentation}!');
         print('Howdy, ${users.name}!');
         print('Howdy, ${users.code}!');
+        print('Howdy, ${users.dni}!');
+
         // if(barcodeScanRes!=null||barcodeScanRes!='-1'||barcodeScanRes!=-1){
         //   Map<String, dynamic> userMap = await jsonDecode(barcodeScanRes);
         //   var users =  User.fromJson(userMap);
@@ -69,6 +71,7 @@ class User{
   final String name;
   final String code;
    DateTime ?date;
+   final String dni;
   String ?presentation;
 
   User({
@@ -76,18 +79,21 @@ class User{
     required this.name,    
     required this.code,
     this.date,
+    required this.dni,
     this.presentation,
 
   });
   User.fromJson(Map<String, dynamic> json)
       : name = json['name'],
-        code = json['code'];
+        code = json['code'],
+        dni = json['dni'];
 
   Map<String,dynamic> toJson()=>{
     'id':id,
     'name':name,
     'code':code,
     'date':date,
+    'dni':dni,
     'presentation':presentation
   };
 

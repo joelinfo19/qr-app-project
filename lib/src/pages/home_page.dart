@@ -12,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   final controllerName=TextEditingController();
 
   final controllerCode=TextEditingController();
+  final controllerDni=TextEditingController();
   String dropdownvalue = 'Ponencia 1'; 
    var items = [   
     'Ponencia 1',
@@ -19,6 +20,46 @@ class _HomePageState extends State<HomePage> {
     'Ponencia 3',
     'Ponencia 4',
     'Ponencia 5',
+     'Ponencia 6',
+    'Ponencia 7',
+    'Ponencia 8',
+    'Ponencia 9',
+    'Ponencia 10',
+     'Ponencia 11',
+    'Ponencia 12',
+    'Ponencia 13',
+    'Ponencia 14',
+    'Ponencia 15',
+     'Ponencia 16',
+    'Ponencia 17',
+    'Ponencia 18',
+    'Ponencia 19',
+    'Ponencia 20',
+     'Ponencia 21',
+    'Ponencia 22',
+    'Ponencia 23',
+    'Ponencia 24',
+    'Ponencia 25',
+     'Ponencia 26',
+    'Ponencia 27',
+    'Ponencia 28',
+    'Ponencia 29',
+    'Ponencia 30',
+     'Ponencia 31',
+    'Ponencia 32',
+    'Ponencia 33',
+    'Ponencia 34',
+    'Ponencia 35',
+     'Ponencia 36',
+    'Ponencia 37',
+    'Ponencia 38',
+    'Ponencia 39',
+    'Ponencia 40',
+     'Ponencia 41',
+    'Ponencia 42',
+    'Ponencia 43',
+    'Ponencia 44',
+    'Ponencia 45',
   ];
 
   InputDecoration decoration(String label)=>InputDecoration(
@@ -54,6 +95,12 @@ class _HomePageState extends State<HomePage> {
 
             ),
             const SizedBox(height: 24),
+            TextField(
+              controller: controllerDni,
+              decoration: decoration('Dni'),
+            ),
+            const SizedBox(height: 24),
+
             DropdownButton(value: dropdownvalue,icon: const Icon(Icons.keyboard_arrow_down),items: items.map((String items){
               return DropdownMenuItem(
                 value:items,
@@ -67,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             }),
             const SizedBox(height: 24),
             OutlinedButton(onPressed: (){
-              final user=User(name: controllerName.text,code: controllerCode.text, date: DateTime.now(),presentation: dropdownvalue);
+              final user=User(name: controllerName.text,code: controllerCode.text, date: DateTime.now(),dni: controllerDni.text,presentation: dropdownvalue);
               createUser(user);
               const snackBar = SnackBar(
                 content: Text("USUARIO AGREGADO"),
@@ -100,6 +147,7 @@ class User{
   final String name;
   final String code;
   final DateTime date;
+  final String dni;
   String ?presentation;
 
   User({
@@ -107,6 +155,7 @@ class User{
     required this.name,    
     required this.code,
     required this.date,
+    required this.dni,
     this.presentation
   });
 
@@ -115,6 +164,7 @@ class User{
     'name':name,
     'code':code,
     'date':date,
+    'dni':dni,
     'presentation':presentation,
   };
 
